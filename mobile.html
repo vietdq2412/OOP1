@@ -14,7 +14,7 @@
             overflow: auto;
             margin-top: 100px;
         }
-
+        
         .nokia {
             width: 500px;
             height: 600px;
@@ -22,7 +22,7 @@
             float: left;
             margin-left: 200px;
         }
-
+        
         .iphone {
             width: 500px;
             height: 600px;
@@ -34,18 +34,55 @@
 </head>
 
 <body>
-<p id="network"></p>
+    <p id="network"></p>
 
-<div class="content">
-    <!--        <div class="nokia">
-                <input type="text" id="nokia"></input>
-               <button onclick="turnOn()">Turn On</button>
-            </div>
-            <div class="iphone">
-               <input type="text" id="iphone"></input>-->
-</div>
--->
-</div>
+    <div class="content">
+        <div class="nokia">
+            <h1>Nokia
+                <button onclick="nokia.turnOn('pin')">Turn On</button>
+                <p id="pin" style="float: right"></p>
+            </h1>
+
+            <input type="text" id="nokia" value=""></input>
+            <button onclick="nokia.message('messnokia')">
+            save
+        </button>
+            <button onclick="nokia.sendMessage(ip)">
+            send
+        </button>
+
+            <hr>
+            <p id="messnokia">msg</p>
+
+            <hr>
+            <p id="datanokia">inbox</p>
+            <br><button onclick="nokia.checkInbox(nokia)">inbox</button>
+            <br><button onclick="nokia.show_sent_mess(nokia)">sent</button>
+
+        </div>
+        <div class="iphone">
+            <h1>Iphone
+                <button onclick="ip.turnOn('pin1')">Turn On</button>
+                <p id="pin1" style="float: right"></p>
+            </h1>
+
+            <input type="text" id="ip" value=""></input>
+            <button onclick="ip.message('messIp')">
+            save
+        </button>
+            <button onclick="ip.sendMessage(nokia)">
+            send
+        </button>
+
+            <hr>
+            <p id="messIp">msg</p>
+
+            <hr>
+            <p id="dataip"></p>
+            <br><button onclick="ip.checkInbox(ip)">check inbox</button>
+            <br><button onclick="ip.show_sent_mess(ip)">sent</button>
+        </div>
+    </div>
 
 
 </body>
@@ -62,37 +99,52 @@
         this.sent = [];
         this.inbox = [];
         this.network = '';
-        this.data = '<div class="content">'
+        this.data = ''
 
-        this.display = function () {
-            data += '<div class="nokia"> <input type="text" id="nokia"></input> <button onclick="turnOn()">Turn On</button> </div>'
-        }
-        this.turnOn = function () {
+
+        this.turnOn = function(pin) {
+            document.getElementById(pin).innerHTML = this.battery + '%';
             this.isOn = true;
-            this.data
         }
-        this.turnOff = function () {
+        this.turnOff = function() {
             this.isOn = false;
         }
 
-        this.charge = function () {
+        this.charge = function() {
             this.battery = 100;
         }
 
-        this.message = function () {
-            this.draf = document.getElementById("'" + this.name + "'");
+        this.message = function(messid) {
+            this.battery--;
+            this.draf = document.getElementById(this.name).value;
+            document.getElementById(messid).innerHTML = this.draf;
+        }
+
+        this.sendMessage = function(otherPhone) {
+            let a = this.draf;
+            otherPhone.inbox[otherPhone.inbox.length] = a;
+            this.sent[this.sent.length] = a;
             this.battery--;
         }
 
-        this.sendMessage = function () {
-            this.battery--;
+        this.checkInbox = function(phone) {
+            let data = '';
+            for (let i = 0; i < this.inbox.length; i++) {
+                data += i + ", " + phone.inbox[i] + "<br>";
+            }
+            document.getElementById('data' + phone.name).innerHTML = 'recived messenger: ' + data;
         }
+
+        this.show_sent_mess = function(phone) {
+            let sentMess = '';
+            for (let i = 0; i < this.sent.length; i++) {
+                sentMess += i + ', ' + this.sent[i] + '<br>';
+            }
+            document.getElementById('data' + phone.name).innerHTML = 'Sent messenger: ' + sentMess;
+        }
+
     }
 
-    let ip = new Mobile('ipon');
-    mobile[0] = ip;
-
-
-    ip.sendMessage();
-    alert(ip.battery);
+    let ip = new Mobile('ip');
+    let nokia = new Mobile('nokia');
 </script>
