@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .content {
+            display: block;
+            width: 100%;
+            height: 800px;
+            border: solid 1px red;
+            overflow: auto;
+            margin-top: 100px;
+        }
+
+        .nokia {
+            width: 500px;
+            height: 600px;
+            border: blue solid 1px;
+            float: left;
+            margin-left: 200px;
+        }
+
+        .iphone {
+            width: 500px;
+            height: 600px;
+            border: solid 1px black;
+            float: right;
+            margin-right: 200px;
+        }
+    </style>
+</head>
+
+<body>
+<p id="network"></p>
+
+<div class="content">
+    <!--        <div class="nokia">
+                <input type="text" id="nokia"></input>
+               <button onclick="turnOn()">Turn On</button>
+            </div>
+            <div class="iphone">
+               <input type="text" id="iphone"></input>-->
+</div>
+-->
+</div>
+
+
+</body>
+
+</html>
+<script>
+    let mobile = [];
+
+    function Mobile(name) {
+        this.name = name;
+        this.battery = 100;
+        this.isOn = false;
+        this.draf = '';
+        this.sent = [];
+        this.inbox = [];
+        this.network = '';
+        this.data = '<div class="content">'
+
+        this.display = function () {
+            data += '<div class="nokia"> <input type="text" id="nokia"></input> <button onclick="turnOn()">Turn On</button> </div>'
+        }
+        this.turnOn = function () {
+            this.isOn = true;
+            this.data
+        }
+        this.turnOff = function () {
+            this.isOn = false;
+        }
+
+        this.charge = function () {
+            this.battery = 100;
+        }
+
+        this.message = function () {
+            this.draf = document.getElementById("'" + this.name + "'");
+            this.battery--;
+        }
+
+        this.sendMessage = function () {
+            this.battery--;
+        }
+    }
+
+    let ip = new Mobile('ipon');
+    mobile[0] = ip;
+
+
+    ip.sendMessage();
+    alert(ip.battery);
+</script>

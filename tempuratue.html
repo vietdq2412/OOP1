@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Tempurature(celcius) {
+            this.cel = celcius;
+
+            this.F = function() {
+                return 9 * this.cel / 5 + 32;
+            }
+
+            this.kenvin = function() {
+                return this.cel + 273.15;
+            }
+        }
+
+        let c = new Tempurature(25);
+
+        alert(c.F());
+        alert(c.kenvin());
+    </script>
+</body>
+
+</html>
